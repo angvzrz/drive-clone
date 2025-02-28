@@ -13,7 +13,7 @@ import { mockFiles } from "@/lib/mock-data";
 
 export default function Home() {
   return (
-    <div className="min-h-screen p-8">
+    <main className="min-h-screen p-8">
       <section className="flex justify-between py-4">
         <h2 className="text-xl font-semibold tracking-tight">My Files</h2>
         <Button
@@ -59,6 +59,6 @@ export default function Home() {
           </TableBody>
         </Table>
       </section>
-    </div>
+    </main>
   );
 }
