@@ -12,13 +12,18 @@ export function FileRow({ file, onClickFile }: FileRowProps) {
     <TableRow
       key={file.id}
       onClick={onClickFile}
-      className="border-slate-700 hover:[&_th]:text-blue-300"
+      className="group border-slate-700"
     >
-      <TableHead scope="row" className="pl-4 text-neutral-100">
+      <TableHead
+        scope="row"
+        className="pl-4 text-neutral-100 group-has-[span:hover]:text-blue-300"
+      >
         <FileIcon />
       </TableHead>
       <TableCell>
-        <span className="cursor-pointer text-neutral-400">{file.name}</span>
+        <span className="cursor-pointer text-neutral-400 hover:text-blue-300">
+          {file.name}
+        </span>
       </TableCell>
       <TableCell className="text-neutral-400">{file.modified}</TableCell>
       <TableCell className="text-neutral-400">{file.size}</TableCell>
@@ -36,13 +41,18 @@ export function FolderRow({ folder, onClickFolder }: FolderRowProps) {
     <TableRow
       key={folder.id}
       onClick={onClickFolder}
-      className="border-slate-700"
+      className="group border-slate-700"
     >
-      <TableHead scope="row" className="pl-4 text-neutral-100">
+      <TableHead
+        scope="row"
+        className="pl-4 text-neutral-100 group-has-[span:hover]:text-blue-300"
+      >
         <FolderIcon />
       </TableHead>
-      <TableCell className="cursor-pointer text-neutral-400 hover:text-blue-300">
-        {folder.name}
+      <TableCell>
+        <span className="cursor-pointer text-neutral-400 hover:text-blue-300">
+          {folder.name}
+        </span>
       </TableCell>
       <TableCell className="text-neutral-400"></TableCell>
       <TableCell className="text-neutral-400"></TableCell>
