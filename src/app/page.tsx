@@ -1,15 +1,7 @@
-import { File, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
+import { FilesTable } from "@/components/FilesTable/files-table";
 import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import { mockFiles } from "@/lib/mock-data";
 
 export default function Home() {
   return (
@@ -29,36 +21,7 @@ export default function Home() {
           Upload
         </Button>
       </section>
-      <section className="rounded-2xl border border-slate-700 bg-slate-900">
-        <Table>
-          <TableHeader>
-            <TableRow className="border-slate-700">
-              <TableHead className="w-0" />
-              <TableHead className="font-bold text-neutral-100">Name</TableHead>
-              <TableHead className="font-bold text-neutral-100">
-                Modified
-              </TableHead>
-              <TableHead className="font-bold text-neutral-100">Size</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {mockFiles.map((file) => (
-              <TableRow key={file.id} className="border-slate-700">
-                <TableHead scope="row" className="pl-4 text-neutral-100">
-                  <File />
-                </TableHead>
-                <TableCell className="cursor-pointer text-neutral-400 hover:underline">
-                  {file.name}
-                </TableCell>
-                <TableCell className="text-neutral-400">
-                  {file.modified}
-                </TableCell>
-                <TableCell className="text-neutral-400">{file.size}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </section>
+      <FilesTable />
     </main>
   );
 }

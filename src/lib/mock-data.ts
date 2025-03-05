@@ -1,41 +1,60 @@
+export type Folder = {
+  id: string;
+  name: string;
+  type: "folder";
+  parent: string | null;
+};
+
 export interface File {
   id: string;
   name: string;
-  type: "file" | "folder";
-  url?: string;
-  parent: string | null;
+  type: "file";
+  url: string;
+  parent: string;
   modified: string;
-  size?: string;
+  size: string;
 }
 
-export const mockFiles: File[] = [
+export const mockFolders: Folder[] = [
+  {
+    id: "root",
+    name: "root",
+    type: "folder",
+    parent: null,
+  },
   {
     id: "1",
     name: "Documents",
     type: "folder",
-    parent: null,
-    modified: "2023-12-01T10:30:00Z",
+    parent: "root",
   },
   {
     id: "2",
     name: "Images",
     type: "folder",
-    parent: null,
-    modified: "2023-11-25T14:15:00Z",
+    parent: "root",
   },
   {
     id: "3",
     name: "Work",
     type: "folder",
-    parent: null,
-    modified: "2023-10-18T09:45:00Z",
+    parent: "root",
   },
+  {
+    id: "4",
+    name: "Presentations",
+    type: "folder",
+    parent: "3",
+  },
+];
+
+export const mockFiles: File[] = [
   {
     id: "4",
     name: "Resume.pdf",
     type: "file",
     url: "/files/resume.pdf",
-    parent: "1",
+    parent: "root",
     size: "1.2 MB",
     modified: "2023-11-30T08:20:00Z",
   },
@@ -67,13 +86,6 @@ export const mockFiles: File[] = [
     modified: "2023-09-15T11:05:00Z",
   },
   {
-    id: "8",
-    name: "Presentations",
-    type: "folder",
-    parent: "3",
-    modified: "2023-10-22T13:30:00Z",
-  },
-  {
     id: "9",
     name: "Q4 Report.pptx",
     type: "file",
@@ -92,3 +104,11 @@ export const mockFiles: File[] = [
     modified: "2023-10-11T17:25:00Z",
   },
 ];
+
+export const getCurrentFiles = (currentFolder: string) => {
+  return mockFiles.filter((file) => file.parent === currentFolder);
+};
+
+export const getCurrentFolders = (currentFolder: string) => {
+  return mockFolders.filter((folder) => folder.parent === currentFolder);
+};
