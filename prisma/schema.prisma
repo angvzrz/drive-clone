@@ -9,6 +9,31 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model File {
+  id        BigInt   @id @default(autoincrement())
+  ownerId   String   @db.Text
+  name      String   @db.Text
+  size      Int
+  url       String   @db.Text
+  parent    BigInt
+  createdAt DateTime @default(now())
+
+  @@index([parent], name: "file_parent_index")
+  @@index([ownerId], name: "file_owner_id_index")
+}
+
+model Folder {
+  id        BigInt   @id @default(autoincrement())
+  ownerId   String   @db.Text
+  name      String   @db.Text
+  parent    BigInt?
+  createdAt DateTime @default(now())
+
+  @@index([parent], name: "folder_parent_index")
+  @@index([ownerId], name: "folder_owner_id_index")
 }
