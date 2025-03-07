@@ -2,8 +2,14 @@
 
 import { Table, TableHead, TableHeader, TableRow } from "../ui/table";
 import { FilesList } from "./files-list";
+import type { File, Folder } from "@prisma/client";
 
-export function FilesTable() {
+interface FilesTableProps {
+  folders: Folder[];
+  files: File[];
+}
+
+export function FilesTable({ folders, files }: FilesTableProps) {
   return (
     <section className="rounded-2xl border border-slate-700 bg-slate-900">
       <Table className="">
@@ -12,12 +18,12 @@ export function FilesTable() {
             <TableHead className="w-0" />
             <TableHead className="font-bold text-neutral-100">Name</TableHead>
             <TableHead className="font-bold text-neutral-100">
-              Modified
+              Created
             </TableHead>
             <TableHead className="font-bold text-neutral-100">Size</TableHead>
           </TableRow>
         </TableHeader>
-        <FilesList />
+        <FilesList folders={folders} files={files} />
       </Table>
     </section>
   );

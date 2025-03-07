@@ -2,8 +2,12 @@ import { Upload } from "lucide-react";
 import { FilesTable } from "@/components/FilesTable/files-table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import db from "@/lib/db";
 
-export default function Home() {
+export default async function Home() {
+  const folders = await db.folder.findMany();
+  const files = await db.file.findMany();
+
   return (
     <main className="min-h-screen p-8">
       <section className="flex justify-between py-4">
@@ -21,7 +25,7 @@ export default function Home() {
           Upload
         </Button>
       </section>
-      <FilesTable />
+      <FilesTable folders={folders} files={files} />
     </main>
   );
 }
