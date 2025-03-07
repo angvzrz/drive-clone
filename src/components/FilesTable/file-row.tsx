@@ -1,5 +1,5 @@
 import { File as FileIcon, Folder as FolderIcon } from "lucide-react";
-import type { File, Folder } from "@/lib/mock-data";
+import type { File, Folder } from "@prisma/client";
 import { TableCell, TableHead, TableRow } from "../ui/table";
 
 interface FileRowProps {
@@ -25,7 +25,9 @@ export function FileRow({ file, onClickFile }: FileRowProps) {
           {file.name}
         </span>
       </TableCell>
-      <TableCell className="text-neutral-400">{file.modified}</TableCell>
+      <TableCell className="text-neutral-400">
+        {file.createdAt.toString()}
+      </TableCell>
       <TableCell className="text-neutral-400">{file.size}</TableCell>
     </TableRow>
   );

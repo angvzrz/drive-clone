@@ -1,31 +1,35 @@
 "use client";
 
 import { useState } from "react";
-import { getCurrentFiles, getCurrentFolders } from "@/lib/mock-data";
 import { TableBody } from "../ui/table";
 import { FileRow, FolderRow } from "./file-row";
+import type { File, Folder } from "@prisma/client";
 
-export function FilesList() {
-  const [currentFolder, setCurrentFolder] = useState<string>("root");
+interface FilesListProps {
+  folders: Folder[];
+  files: File[];
+}
 
-  const handleFolderClick = (folderId: string) => {
+export function FilesList({ folders, files }: FilesListProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [currentFolder, setCurrentFolder] = useState<number>(1);
+
+  const handleFolderClick = (folderId: number) => {
     setCurrentFolder(folderId);
   };
 
-  const currentFolders = getCurrentFolders(currentFolder);
-  const currentFiles = getCurrentFiles(currentFolder);
-  if (!currentFiles.length && !currentFolders.length) return null;
+  if (!folders.length && !files.length) return null;
 
   return (
     <TableBody>
-      {currentFolders.map((folder) => (
+      {folders.map((folder) => (
         <FolderRow
           key={folder.id}
           folder={folder}
-          onClickFolder={() => handleFolderClick(folder.id)}
+          onClickFolder={() => handleFolderClick(1)}
         />
       ))}
-      {currentFiles.map((file) => (
+      {files.map((file) => (
         <FileRow key={file.id} file={file} onClickFile={() => {}} />
       ))}
     </TableBody>
