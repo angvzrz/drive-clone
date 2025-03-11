@@ -3,5 +3,5 @@ import type { ReadonlyURLSearchParams } from "next/navigation";
 
 export type PageProps = {
   params: Promise<Params>;
-  searchParams: ReadonlyURLSearchParams;
+  searchParams: Promise<ReadonlyURLSearchParams>;
 };
