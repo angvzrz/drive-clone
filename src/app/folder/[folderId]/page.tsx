@@ -1,8 +1,8 @@
 import { Upload } from "lucide-react";
 import { FilesTable } from "@/components/FilesTable/files-table";
+import { QUERIES } from "@/server/db/queries";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import db from "@/server/db/db";
 import { PageProps } from "@/types";
 
 export default async function DriveClone({ params }: PageProps) {
@@ -15,20 +15,10 @@ export default async function DriveClone({ params }: PageProps) {
     return <p>Invalid folder ID</p>;
   }
 
-  const folders = await db.folder.findMany({
-    where: {
-      parent: {
-        equals: parsedFolderId,
-      },
-    },
-  });
-  const files = await db.file.findMany({
-    where: {
-      parent: {
-        equals: parsedFolderId,
-      },
-    },
-  });
+  const [folders, files] = await Promise.all([
+    QUERIES.getFolders(parsedFolderId),
+    QUERIES.getFiles(parsedFolderId),
+  ]);
 
   return (
     <main className="min-h-screen p-8">
