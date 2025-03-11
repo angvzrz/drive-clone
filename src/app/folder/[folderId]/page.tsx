@@ -2,7 +2,7 @@ import { Upload } from "lucide-react";
 import { FilesTable } from "@/components/FilesTable/files-table";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import db from "@/lib/db";
+import db from "@/server/db/db";
 import { PageProps } from "@/types";
 
 export default async function DriveClone({ params }: PageProps) {
