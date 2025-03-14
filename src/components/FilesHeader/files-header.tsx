@@ -2,16 +2,15 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-
-import { Button } from '../ui/button';
-import { UploadButton } from '../common';
 import { createClient } from '@/lib/supabase/client';
 import { ShieldUser, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { AuthAction } from './auth-action';
 
 const hcaptchaSiteKey = process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ?? '';
 
 export function FilesHeader() {
+  const [isGettingUser, setIsGettingUser] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
   const supabase = useMemo(() => createClient(), []);
@@ -19,35 +18,28 @@ export function FilesHeader() {
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
-      console.log({ data });
       setIsAuthenticated(data.user !== null);
+      setIsGettingUser(false);
     };
     getUser();
-  }, [isAuthenticated]);
+  }, []);
 
   const handleSignIn = async (captchaToken: string) => {
-    await supabase.auth.signInAnonymously({
+    const { data } = await supabase.auth.signInAnonymously({
       options: { captchaToken },
     });
+    setIsAuthenticated(data.user !== null);
     setIsSigningIn(false);
   };
 
   return (
     <section className="flex justify-between py-4">
       <h2 className="text-xl font-semibold tracking-tight">My Files</h2>
-      {isAuthenticated ? (
-        <UploadButton />
-      ) : (
-        <p className="flex items-center gap-4">
-          Try as guest
-          <Button
-            onClick={() => setIsSigningIn(true)}
-            className="cursor-pointer rounded-r-lg"
-          >
-            Continue
-          </Button>
-        </p>
-      )}
+      <AuthAction
+        isAuthenticated={isAuthenticated}
+        isGettingUser={isGettingUser}
+        onSigningIn={() => setIsSigningIn(true)}
+      />
       {isSigningIn && (
         <div
           className={cn(
