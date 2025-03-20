@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/client';
+import { getServerClient } from '@/lib/supabase/server';
 import { MUTATIONS } from '@/server/db/queries';
 import { createUploadthing, type FileRouter } from 'uploadthing/next';
 import { UploadThingError } from 'uploadthing/server';
@@ -21,7 +21,7 @@ export const ourFileRouter = {
     // Set permissions and file types for this FileRoute
     .middleware(async () => {
       // This code runs on your server before upload
-      const supabase = createClient();
+      const supabase = await getServerClient();
       const user = await supabase.auth.getUser();
       const userId = user.data.user?.id;
 
