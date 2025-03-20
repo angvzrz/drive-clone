@@ -1,3 +1,5 @@
+'use client';
+
 import { LoaderCircle } from 'lucide-react';
 import { UploadButton } from '../common';
 import { Button } from '../ui/button';
