@@ -1,6 +1,6 @@
-import { File as FileIcon, Folder as FolderIcon } from "lucide-react";
-import type { File, Folder } from "@prisma/client";
-import { TableCell, TableHead, TableRow } from "../ui/table";
+import { File as FileIcon, Folder as FolderIcon } from 'lucide-react';
+import type { File, Folder } from '@prisma/client';
+import { TableCell, TableHead, TableRow } from '../ui/table';
 
 interface FileRowProps {
   file: File;
@@ -21,9 +21,13 @@ export function FileRow({ file, onClickFile }: FileRowProps) {
         <FileIcon />
       </TableHead>
       <TableCell>
-        <span className="cursor-pointer text-neutral-400 hover:text-blue-300">
+        <a
+          href={file.url}
+          className="cursor-pointer text-neutral-400 hover:text-blue-300"
+          target="_blank"
+        >
           {file.name}
-        </span>
+        </a>
       </TableCell>
       <TableCell className="text-neutral-400">
         {file.createdAt.toString()}

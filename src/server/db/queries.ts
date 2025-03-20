@@ -1,4 +1,4 @@
-import db from "./db";
+import db from './db';
 
 export const QUERIES = {
   getFolders: function (folderId: number) {
@@ -18,6 +18,22 @@ export const QUERIES = {
           equals: folderId,
         },
       },
+    });
+  },
+};
+
+export const MUTATIONS = {
+  createFile: async function (input: {
+    file: {
+      name: string;
+      size: number;
+      url: string;
+      parent: number;
+    };
+    userId: string;
+  }) {
+    return db.file.create({
+      data: { ...input.file, ownerId: input.userId },
     });
   },
 };
