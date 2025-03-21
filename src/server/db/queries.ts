@@ -10,7 +10,6 @@ export const QUERIES = {
       },
     });
   },
-
   getFiles: function (folderId: number) {
     return db.file.findMany({
       where: {
@@ -19,6 +18,12 @@ export const QUERIES = {
         },
       },
     });
+  },
+  getFolderById: async function (folderId: number) {
+    const folder = await db.folder.findUnique({
+      where: { id: folderId },
+    });
+    return folder;
   },
 };
 
