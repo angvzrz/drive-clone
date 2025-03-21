@@ -1,5 +1,6 @@
+import { z } from 'zod';
 import { getServerClient } from '@/lib/supabase/server';
-import { MUTATIONS } from '@/server/db/queries';
+import { MUTATIONS, QUERIES } from '@/server/db/queries';
 import { createUploadthing, type FileRouter } from 'uploadthing/next';
 import { UploadThingError } from 'uploadthing/server';
 
@@ -18,8 +19,13 @@ export const ourFileRouter = {
       maxFileCount: 1,
     },
   })
+    .input(
+      z.object({
+        folderId: z.number(),
+      }),
+    )
     // Set permissions and file types for this FileRoute
-    .middleware(async () => {
+    .middleware(async ({ input }) => {
       // This code runs on your server before upload
       const supabase = await getServerClient();
       const user = await supabase.auth.getUser();
@@ -28,8 +34,12 @@ export const ourFileRouter = {
       // If you throw, the user will not be able to upload
       if (!userId) throw new UploadThingError('Unauthorized');
 
+      const folder = await QUERIES.getFolderById(input.folderId);
+      if (!folder) throw new UploadThingError('Folder not found');
+      if (folder.ownerId !== userId) throw new UploadThingError('Unauthorized');
+
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
-      return { userId };
+      return { userId, parentId: input.folderId };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
@@ -41,7 +51,7 @@ export const ourFileRouter = {
           name: file.name,
           size: file.size,
           url: file.ufsUrl,
-          parent: 0,
+          parent: metadata.parentId,
         },
         userId: metadata.userId,
       });
