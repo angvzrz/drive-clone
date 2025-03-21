@@ -5,16 +5,11 @@ import Link from 'next/link';
 
 interface FileRowProps {
   file: File;
-  onClickFile: () => void;
 }
 
-export function FileRow({ file, onClickFile }: FileRowProps) {
+export function FileRow({ file }: FileRowProps) {
   return (
-    <TableRow
-      key={file.id}
-      onClick={onClickFile}
-      className="group border-slate-700"
-    >
+    <TableRow key={file.id} className="group border-slate-700">
       <TableHead
         scope="row"
         className="pl-4 text-neutral-100 group-has-[span:hover]:text-blue-300"
