@@ -2,6 +2,7 @@ import { Upload } from 'lucide-react';
 import { OurFileRouter } from '@/app/api/uploadthing/core';
 import { generateUploadButton } from '@uploadthing/react';
 import { cn } from '@/lib/utils';
+import { useParams } from 'next/navigation';
 
 const UploadthingButton = generateUploadButton<OurFileRouter>();
 
@@ -10,10 +11,13 @@ interface UploadButtonProps {
 }
 
 export function UploadButton({ onUpload }: UploadButtonProps) {
+  const params = useParams<{ folderId: string }>();
+
   return (
     <UploadthingButton
       endpoint="imageUploader"
       onClientUploadComplete={onUpload}
+      input={{ folderId: Number(params.folderId) }}
       appearance={{
         button: cn(
           'h-auto w-auto cursor-pointer gap-2 !rounded-2xl px-4 py-2 outline-none',
