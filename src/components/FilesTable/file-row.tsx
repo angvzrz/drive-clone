@@ -1,6 +1,7 @@
 import { File as FileIcon, Folder as FolderIcon } from 'lucide-react';
 import type { File, Folder } from '@prisma/client';
 import { TableCell, TableHead, TableRow } from '../ui/table';
+import Link from 'next/link';
 
 interface FileRowProps {
   file: File;
@@ -39,16 +40,11 @@ export function FileRow({ file, onClickFile }: FileRowProps) {
 
 interface FolderRowProps {
   folder: Folder;
-  onClickFolder: () => void;
 }
 
-export function FolderRow({ folder, onClickFolder }: FolderRowProps) {
+export function FolderRow({ folder }: FolderRowProps) {
   return (
-    <TableRow
-      key={folder.id}
-      onClick={onClickFolder}
-      className="group border-slate-700"
-    >
+    <TableRow key={folder.id} className="group border-slate-700">
       <TableHead
         scope="row"
         className="pl-4 text-neutral-100 group-has-[span:hover]:text-blue-300"
@@ -56,9 +52,12 @@ export function FolderRow({ folder, onClickFolder }: FolderRowProps) {
         <FolderIcon />
       </TableHead>
       <TableCell>
-        <span className="cursor-pointer text-neutral-400 hover:text-blue-300">
+        <Link
+          href={`/folder/${folder.id}`}
+          className="cursor-pointer text-neutral-400 hover:text-blue-300"
+        >
           {folder.name}
-        </span>
+        </Link>
       </TableCell>
       <TableCell className="text-neutral-400"></TableCell>
       <TableCell className="text-neutral-400"></TableCell>
