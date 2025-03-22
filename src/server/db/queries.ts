@@ -8,6 +8,7 @@ export const QUERIES = {
           equals: folderId,
         },
       },
+      orderBy: { id: 'asc' },
     });
   },
   getFiles: function (folderId: number) {
@@ -17,6 +18,7 @@ export const QUERIES = {
           equals: folderId,
         },
       },
+      orderBy: { id: 'asc' },
     });
   },
   getFolderById: async function (folderId: number) {

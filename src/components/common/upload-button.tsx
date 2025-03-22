@@ -15,7 +15,7 @@ export function UploadButton({ onUpload }: UploadButtonProps) {
 
   return (
     <UploadthingButton
-      endpoint="imageUploader"
+      endpoint="driveUploader"
       onClientUploadComplete={onUpload}
       input={{ folderId: Number(params.folderId) }}
       appearance={{
