@@ -1,9 +1,8 @@
 'use client';
 
-import { LoaderCircle } from 'lucide-react';
-import { UploadButton } from '../common';
-import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
+import { Button } from '../ui/button';
+import { DriveLoader, UploadButton } from '../common';
 
 interface AuthActionProps {
   isGettingUser: boolean;
@@ -19,7 +18,7 @@ export function AuthAction({
   const navigate = useRouter();
 
   if (isGettingUser) {
-    return <LoaderCircle className="animate-spin text-slate-500" />;
+    return <DriveLoader />;
   }
 
   return (

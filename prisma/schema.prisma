@@ -20,6 +20,7 @@ model File {
   name      String   @db.Text
   size      Int
   url       String   @db.Text
+  fileKey   String   @db.Text
   parent    BigInt
   createdAt DateTime @default(now())
 

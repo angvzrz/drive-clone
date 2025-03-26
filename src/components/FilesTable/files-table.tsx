@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Table, TableHead, TableHeader, TableRow } from "../ui/table";
-import { FilesList } from "./files-list";
-import type { File, Folder } from "@prisma/client";
+import { Table, TableHead, TableHeader, TableRow } from '../ui/table';
+import { FilesList } from './files-list';
+import type { File, Folder } from '@prisma/client';
 
 interface FilesTableProps {
   folders: Folder[];
@@ -21,6 +21,7 @@ export function FilesTable({ folders, files }: FilesTableProps) {
               Created
             </TableHead>
             <TableHead className="font-bold text-neutral-100">Size</TableHead>
+            <TableHead className="w-0" />
           </TableRow>
         </TableHeader>
         <FilesList folders={folders} files={files} />
