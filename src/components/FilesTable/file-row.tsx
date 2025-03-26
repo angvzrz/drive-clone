@@ -1,13 +1,24 @@
-import { File as FileIcon, Folder as FolderIcon } from 'lucide-react';
-import type { File, Folder } from '@prisma/client';
-import { TableCell, TableHead, TableRow } from '../ui/table';
+import { useTransition } from 'react';
 import Link from 'next/link';
+import { FileIcon, FolderIcon, Trash2Icon } from 'lucide-react';
+import type { File, Folder } from '@prisma/client';
+import { deleteFile } from '@/server/actions';
+import { TableCell, TableHead, TableRow } from '../ui/table';
+import { DriveLoader } from '../common';
 
 interface FileRowProps {
   file: File;
 }
 
 export function FileRow({ file }: FileRowProps) {
+  const [isPending, startTransition] = useTransition();
+
+  const deleteFileAction = () => {
+    startTransition(async () => {
+      await deleteFile(Number(file.id));
+    });
+  };
+
   return (
     <TableRow key={file.id} className="group border-slate-700">
       <TableHead
@@ -29,6 +40,21 @@ export function FileRow({ file }: FileRowProps) {
         {file.createdAt.toString()}
       </TableCell>
       <TableCell className="text-neutral-400">{file.size}</TableCell>
+      <TableCell>
+        <div className="flex items-center justify-center px-2 text-neutral-400">
+          {isPending ? (
+            <DriveLoader size={20} />
+          ) : (
+            <button
+              onClick={deleteFileAction}
+              aria-label="Delete file"
+              className="flex cursor-pointer items-center hover:text-red-400"
+            >
+              <Trash2Icon className="h-5 w-5" />
+            </button>
+          )}
+        </div>
+      </TableCell>
     </TableRow>
   );
 }
@@ -54,8 +80,9 @@ export function FolderRow({ folder }: FolderRowProps) {
           {folder.name}
         </Link>
       </TableCell>
-      <TableCell className="text-neutral-400"></TableCell>
-      <TableCell className="text-neutral-400"></TableCell>
+      <TableCell />
+      <TableCell />
+      <TableCell />
     </TableRow>
   );
 }
