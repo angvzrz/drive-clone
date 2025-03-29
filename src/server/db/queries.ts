@@ -44,4 +44,15 @@ export const MUTATIONS = {
       data: { ...input.file, ownerId: input.userId },
     });
   },
+  createFolder: async function (input: {
+    folder: {
+      name: string;
+      parent: number;
+    };
+    userId: string;
+  }) {
+    return db.folder.create({
+      data: { ...input.folder, ownerId: input.userId },
+    });
+  },
 };
