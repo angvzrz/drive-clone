@@ -2,22 +2,20 @@ import { Upload } from 'lucide-react';
 import { OurFileRouter } from '@/app/api/uploadthing/core';
 import { generateUploadButton } from '@uploadthing/react';
 import { cn } from '@/lib/utils';
-import { useParams } from 'next/navigation';
 
 const UploadthingButton = generateUploadButton<OurFileRouter>();
 
 interface UploadButtonProps {
   onUpload: () => void;
+  folderId: number;
 }
 
-export function UploadButton({ onUpload }: UploadButtonProps) {
-  const params = useParams<{ folderId: string }>();
-
+export function UploadButton({ onUpload, folderId }: UploadButtonProps) {
   return (
     <UploadthingButton
       endpoint="driveUploader"
       onClientUploadComplete={onUpload}
-      input={{ folderId: Number(params.folderId) }}
+      input={{ folderId }}
       appearance={{
         button: cn(
           'h-auto w-auto cursor-pointer gap-2 !rounded-2xl px-4 py-2 outline-none',
