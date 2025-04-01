@@ -1,4 +1,4 @@
-import { Upload } from 'lucide-react';
+import { FileIcon } from 'lucide-react';
 import { OurFileRouter } from '@/app/api/uploadthing/core';
 import { generateUploadButton } from '@uploadthing/react';
 import { cn } from '@/lib/utils';
@@ -18,15 +18,13 @@ export function UploadButton({ onUpload, folderId }: UploadButtonProps) {
       input={{ folderId }}
       appearance={{
         button: cn(
-          'h-auto w-auto cursor-pointer gap-2 !rounded-2xl px-4 py-2 outline-none',
-          'bg-linear-[128.84deg,#0f6cbd_20.46%,#3c45ab_72.3%]',
-          'hover:bg-linear-[128.84deg,#025caa_20.46%,#222b91_72.3%]',
-          'text-sm font-medium text-primary-foreground',
-          'shadow-xs transition-[color,box-shadow]',
-          'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
-          'disabled:opacity-50',
-          'aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40',
-          'has-[>svg]:px-3 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
+          'relative flex !h-auto !w-full cursor-default',
+          'items-center justify-start gap-2 rounded-sm !bg-transparent',
+          '!px-2 !py-1.5 text-sm outline-hidden select-none',
+          'focus:bg-accent focus:text-accent-foreground data-[inset]:pl-8',
+          '[&_svg]:pointer-events-none [&_svg]:shrink-0',
+          '[&_svg:not([class*="size-"])]:size-4',
+          '[&_svg:not([class*="text-"])]:text-muted-foreground',
         ),
         allowedContent: 'hidden',
       }}
@@ -35,7 +33,7 @@ export function UploadButton({ onUpload, folderId }: UploadButtonProps) {
           if (ready)
             return (
               <>
-                <Upload /> Upload
+                <FileIcon /> Files
               </>
             );
         },
