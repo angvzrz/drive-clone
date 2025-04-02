@@ -38,7 +38,7 @@ export function UploadDropdown() {
 
   return (
     <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="pt-4 pr-12">
         <Button
           variant="secondary"
           className={cn(
@@ -54,12 +54,16 @@ export function UploadDropdown() {
           </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-24 bg-slate-900">
-        <DropdownMenuItem>
+      <DropdownMenuContent
+        align="start"
+        className="w-24 border-none bg-slate-900"
+      >
+        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
           <div className="w-full">
             <UploadButton
               folderId={Number(params.folderId)}
               onUpload={() => navigate.refresh()}
+              onChange={() => setIsDropdownOpen(false)}
             />
           </div>
         </DropdownMenuItem>

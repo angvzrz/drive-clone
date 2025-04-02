@@ -1,3 +1,5 @@
+'use client';
+
 import { FileIcon } from 'lucide-react';
 import { OurFileRouter } from '@/app/api/uploadthing/core';
 import { generateUploadButton } from '@uploadthing/react';
@@ -6,15 +8,21 @@ import { cn } from '@/lib/utils';
 const UploadthingButton = generateUploadButton<OurFileRouter>();
 
 interface UploadButtonProps {
-  onUpload: () => void;
   folderId: number;
+  onUpload: () => void;
+  onChange: () => void;
 }
 
-export function UploadButton({ onUpload, folderId }: UploadButtonProps) {
+export function UploadButton({
+  folderId,
+  onUpload,
+  onChange,
+}: UploadButtonProps) {
   return (
     <UploadthingButton
       endpoint="driveUploader"
       onClientUploadComplete={onUpload}
+      onChange={onChange}
       input={{ folderId }}
       appearance={{
         button: cn(
