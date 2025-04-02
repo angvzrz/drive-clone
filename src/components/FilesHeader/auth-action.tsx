@@ -1,13 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { DriveLoader } from '../common';
 import { Button } from '../ui/button';
-import { DriveLoader, UploadButton } from '../common';
 
 interface AuthActionProps {
   isGettingUser: boolean;
   isAuthenticated: boolean;
-  onSigningIn: () => void;
+  onSigningIn?: () => void;
 }
 
 export function AuthAction({
@@ -15,17 +14,13 @@ export function AuthAction({
   isAuthenticated,
   onSigningIn,
 }: AuthActionProps) {
-  const navigate = useRouter();
-
   if (isGettingUser) {
     return <DriveLoader />;
   }
 
   return (
     <>
-      {isAuthenticated ? (
-        <UploadButton onUpload={() => navigate.refresh()} />
-      ) : (
+      {isAuthenticated ? null : (
         <p className="flex items-center gap-4">
           Try as guest
           <Button onClick={onSigningIn} className="cursor-pointer rounded-r-lg">
