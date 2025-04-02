@@ -17,7 +17,6 @@ const handleFolderUpload = async (
   event: React.ChangeEvent<HTMLInputElement>,
   parentFolderId: number,
 ) => {
-  console.log('uploading folder');
   const files = event.target.files;
 
   if (!files) return;
@@ -62,7 +61,7 @@ export function UploadDropdown() {
             />
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
           <label className="flex w-full cursor-pointer items-end gap-2">
             <input
               tabIndex={0}
