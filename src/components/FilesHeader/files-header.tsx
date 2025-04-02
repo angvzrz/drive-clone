@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { createClient } from '@/lib/supabase/client';
 import { ShieldUser, X } from 'lucide-react';
@@ -13,6 +13,7 @@ export function FilesHeader() {
   const [isGettingUser, setIsGettingUser] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isSigningIn, setIsSigningIn] = useState<boolean>(false);
+  const captcha = useRef<HCaptcha>(null);
   const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
@@ -28,8 +29,11 @@ export function FilesHeader() {
     const { data } = await supabase.auth.signInAnonymously({
       options: { captchaToken },
     });
+
     setIsAuthenticated(data.user !== null);
     setIsSigningIn(false);
+
+    captcha.current?.resetCaptcha();
   };
 
   return (
@@ -67,7 +71,11 @@ export function FilesHeader() {
             className="absolute top-4 right-4 cursor-pointer text-gray-500"
             onClick={() => setIsSigningIn(false)}
           />
-          <HCaptcha sitekey={hcaptchaSiteKey} onVerify={handleSignIn} />
+          <HCaptcha
+            ref={captcha}
+            sitekey={hcaptchaSiteKey}
+            onVerify={handleSignIn}
+          />
         </div>
       )}
     </section>
