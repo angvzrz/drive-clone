@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import {
@@ -31,11 +32,12 @@ const handleFolderUpload = async (
 };
 
 export function UploadDropdown() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useRouter();
   const params = useParams<{ folderId: string }>();
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
       <DropdownMenuTrigger>
         <Button
           variant="secondary"
@@ -69,7 +71,10 @@ export function UploadDropdown() {
               dir=""
               webkitdirectory=""
               multiple
-              onChange={(e) => handleFolderUpload(e, Number(params.folderId))}
+              onChange={(e) => {
+                setIsDropdownOpen(false);
+                handleFolderUpload(e, Number(params.folderId));
+              }}
               className="sr-only"
             />
             <FolderIcon /> Folder
