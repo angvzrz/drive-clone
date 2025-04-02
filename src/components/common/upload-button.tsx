@@ -20,7 +20,7 @@ export function UploadButton({ onUpload, folderId }: UploadButtonProps) {
         button: cn(
           'relative flex !h-auto !w-full cursor-default',
           'items-center justify-start gap-2 rounded-sm !bg-transparent',
-          '!px-2 !py-1.5 text-sm outline-hidden select-none',
+          'text-sm outline-hidden select-none',
           'focus:bg-accent focus:text-accent-foreground data-[inset]:pl-8',
           '[&_svg]:pointer-events-none [&_svg]:shrink-0',
           '[&_svg:not([class*="size-"])]:size-4',

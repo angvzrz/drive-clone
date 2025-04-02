@@ -54,11 +54,13 @@ export function UploadDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-24 bg-slate-900">
-        <DropdownMenuItem asChild>
-          <UploadButton
-            folderId={Number(params.folderId)}
-            onUpload={() => navigate.refresh()}
-          />
+        <DropdownMenuItem>
+          <div className="w-full">
+            <UploadButton
+              folderId={Number(params.folderId)}
+              onUpload={() => navigate.refresh()}
+            />
+          </div>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <label className="flex w-full cursor-pointer items-end gap-2">
