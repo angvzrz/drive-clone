@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter, useParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import {
@@ -15,6 +17,7 @@ const handleFolderUpload = async (
   event: React.ChangeEvent<HTMLInputElement>,
   parentFolderId: number,
 ) => {
+  console.log('uploading folder');
   const files = event.target.files;
 
   if (!files) return;
@@ -43,8 +46,11 @@ export function UploadDropdown() {
             'bg-linear-[128.84deg,#0f6cbd_20.46%,#3c45ab_72.3%]',
             'hover:bg-linear-[128.84deg,#025caa_20.46%,#222b91_72.3%]',
           )}
+          asChild
         >
-          <UploadIcon /> Upload
+          <span>
+            <UploadIcon /> Upload
+          </span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-24 bg-slate-900">
