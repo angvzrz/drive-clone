@@ -1,12 +1,12 @@
-import { FilesHeader } from "@/components/FilesHeader/files-header";
-import { FilesTable } from "@/components/FilesTable/files-table";
-import { QUERIES } from "@/server/db/queries";
-import { PageProps } from "@/types";
+import { FilesHeader } from '@/components/FilesHeader/files-header';
+import { FilesTable } from '@/components/FilesTable/files-table';
+import { UploadDropdown } from '@/components/common';
+import { QUERIES } from '@/server/db/queries';
+import { PageProps } from '@/types';
 
 export default async function DriveClone({ params }: PageProps) {
   const routeParams = await params;
   const folderId = routeParams.folderId as string;
-  console.log({ folderId });
 
   const parsedFolderId = parseInt(folderId);
   if (isNaN(parsedFolderId)) {
@@ -19,9 +19,14 @@ export default async function DriveClone({ params }: PageProps) {
   ]);
 
   return (
-    <main className="min-h-screen p-8">
-      <FilesHeader />
-      <FilesTable folders={folders} files={files} />
+    <main className="flex min-h-screen p-8">
+      <nav>
+        <UploadDropdown />
+      </nav>
+      <section className="flex-1">
+        <FilesHeader />
+        <FilesTable folders={folders} files={files} />
+      </section>
     </main>
   );
 }

@@ -1,12 +1,12 @@
 'use client';
 
-import { DriveLoader, UploadDropdown } from '../common';
+import { DriveLoader } from '../common';
 import { Button } from '../ui/button';
 
 interface AuthActionProps {
   isGettingUser: boolean;
   isAuthenticated: boolean;
-  onSigningIn: () => void;
+  onSigningIn?: () => void;
 }
 
 export function AuthAction({
@@ -20,9 +20,7 @@ export function AuthAction({
 
   return (
     <>
-      {isAuthenticated ? (
-        <UploadDropdown />
-      ) : (
+      {isAuthenticated ? null : (
         <p className="flex items-center gap-4">
           Try as guest
           <Button onClick={onSigningIn} className="cursor-pointer rounded-r-lg">
