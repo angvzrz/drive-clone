@@ -1,4 +1,6 @@
 import { DriveButton } from '@/components/common/drive-button';
+import { getServerClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 
 export default function HomePage() {
   return (
@@ -27,7 +29,20 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                <DriveButton label="Get Started" />
+                <form
+                  action={async () => {
+                    'use server';
+
+                    const supabase = await getServerClient();
+                    const session = await supabase.auth.getUser();
+
+                    if (!session.data.user?.id) return redirect('/sign-in');
+
+                    return redirect('/onboard');
+                  }}
+                >
+                  <DriveButton label="Get Started" />
+                </form>
                 <DriveButton label="Learn More" variant="secondary" />
               </div>
 
