@@ -1,5 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { DriveButton } from '@/components/common/drive-button';
 
 export default function HomePage() {
   return (
@@ -28,26 +27,8 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
-                <Button
-                  size="lg"
-                  className={cn(
-                    'cursor-pointer border-0',
-                    'bg-gradient-to-r from-cyan-500 to-sky-500',
-                    'text-white hover:from-cyan-600 hover:to-sky-600',
-                  )}
-                >
-                  Get Started
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className={cn(
-                    'cursor-pointer border-slate-700 text-slate-300',
-                    'hover:bg-slate-800 hover:text-slate-50',
-                  )}
-                >
-                  Learn More
-                </Button>
+                <DriveButton label="Get Started" />
+                <DriveButton label="Learn More" variant="secondary" />
               </div>
 
               <div className="flex items-center justify-center gap-6 pt-4 text-sm text-slate-400">
