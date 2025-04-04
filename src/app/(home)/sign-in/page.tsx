@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { redirect } from 'next/navigation';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { CaptchaVerification } from '@/components/common/captcha-verification';
 import { DriveButton } from '@/components/common/drive-button';
@@ -21,7 +22,7 @@ export default function SignInPage() {
     setIsSigningIn(false);
     captcha.current?.resetCaptcha();
 
-    if (data.user !== null) console.log('User signed in:', data.user);
+    if (data.user !== null) redirect('/onboard');
   };
 
   return (

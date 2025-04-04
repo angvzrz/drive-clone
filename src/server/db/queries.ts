@@ -65,4 +65,28 @@ export const MUTATIONS = {
       data: { ...input.folder, ownerId: input.userId },
     });
   },
+  onboardUser: async function (userId: string) {
+    const newRootFolderId = await db.$transaction(async (tx) => {
+      const rootFolder = await tx.folder.create({
+        data: {
+          name: 'root',
+          ownerId: userId,
+          parent: null,
+        },
+      });
+      const rootFolderId = rootFolder.id;
+
+      await tx.folder.create({
+        data: {
+          name: 'Documents',
+          ownerId: userId,
+          parent: rootFolderId,
+        },
+      });
+
+      return rootFolderId;
+    });
+
+    return newRootFolderId;
+  },
 };
