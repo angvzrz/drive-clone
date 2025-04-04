@@ -74,7 +74,7 @@ export function FolderRow({ folder }: FolderRowProps) {
       </TableHead>
       <TableCell>
         <Link
-          href={`/folder/${folder.id}`}
+          href={`/f/${folder.id}`}
           className="cursor-pointer text-neutral-400 hover:text-blue-300"
         >
           {folder.name}

@@ -27,6 +27,16 @@ export const QUERIES = {
     });
     return folder;
   },
+  getRootFolderForUser: async function (userId: string) {
+    const folder = await db.folder.findFirst({
+      where: {
+        ownerId: userId,
+        AND: { parent: null },
+      },
+    });
+
+    return folder;
+  },
 };
 
 export const MUTATIONS = {
@@ -54,5 +64,29 @@ export const MUTATIONS = {
     return db.folder.create({
       data: { ...input.folder, ownerId: input.userId },
     });
+  },
+  onboardUser: async function (userId: string) {
+    const newRootFolderId = await db.$transaction(async (tx) => {
+      const rootFolder = await tx.folder.create({
+        data: {
+          name: 'root',
+          ownerId: userId,
+          parent: null,
+        },
+      });
+      const rootFolderId = rootFolder.id;
+
+      await tx.folder.create({
+        data: {
+          name: 'Documents',
+          ownerId: userId,
+          parent: rootFolderId,
+        },
+      });
+
+      return rootFolderId;
+    });
+
+    return newRootFolderId;
   },
 };
