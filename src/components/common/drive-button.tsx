@@ -1,3 +1,4 @@
+import { ButtonHTMLAttributes } from 'react';
 import { cva } from 'class-variance-authority';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
@@ -13,17 +14,24 @@ const buttonVariants = cva('cursor-pointer', {
   },
 });
 
-interface DriveButtonProps {
+interface DriveButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   variant?: 'primary' | 'secondary';
 }
 
-export function DriveButton({ label, variant = 'primary' }: DriveButtonProps) {
+export function DriveButton({
+  label,
+  variant = 'primary',
+  type = 'button',
+  ...props
+}: DriveButtonProps) {
   return (
     <Button
       variant={variant === 'primary' ? 'default' : 'outline'}
       size="lg"
+      type={type}
       className={cn(buttonVariants({ variant }))}
+      {...props}
     >
       {label}
     </Button>

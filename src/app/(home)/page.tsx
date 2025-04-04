@@ -32,7 +32,7 @@ export default function HomePage() {
                 return redirect('/onboard');
               }}
             >
-              <DriveButton label="Get Started" />
+              <DriveButton label="Get Started" type="submit" />
             </form>
             <DriveButton label="Learn More" variant="secondary" />
           </div>
