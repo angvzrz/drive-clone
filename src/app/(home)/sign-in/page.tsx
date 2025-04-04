@@ -2,9 +2,8 @@
 
 import { useRef, useState } from 'react';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { CaptchaVerification } from '@/components/common/captcha-verification';
+import { DriveButton } from '@/components/common/drive-button';
 import { createClient } from '@/lib/supabase/client';
 
 export default function SignInPage() {
@@ -27,16 +26,7 @@ export default function SignInPage() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <Button
-        onClick={() => setIsSigningIn(true)}
-        className={cn(
-          'cursor-pointer border-0',
-          'bg-gradient-to-r from-cyan-500 to-sky-500',
-          'text-white hover:from-cyan-600 hover:to-sky-600',
-        )}
-      >
-        Sign In
-      </Button>
+      <DriveButton label="Sign In" onClick={() => setIsSigningIn(true)} />
       {isSigningIn && (
         <CaptchaVerification
           captcha={captcha}
